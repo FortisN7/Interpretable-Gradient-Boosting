@@ -1,4 +1,4 @@
-FROM python
+FROM python:3.10
+RUN pip install pandas numpy xgboost shap matplotlib
 COPY . /app
 CMD python -u /app/app.py
-# Add pip eventually so I can install plugins like pandas and numpy
