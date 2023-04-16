@@ -27,8 +27,8 @@ shap_values = explainer(test)
 
 shap.summary_plot(shap_values, test, max_display=15, cmap='seismic')
 f = plt.gcf()
-plt.show()
+plt.savefig()
 
 xgb.plot_importance(model, max_num_features=15)
 f = plt.gcf()
-plt.show()
+plt.savefig()
