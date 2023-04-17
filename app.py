@@ -75,5 +75,10 @@ shap_values = explainer(test)
 
 shap.summary_plot(shap_values, test, max_display=15, cmap='seismic')
 
+explainer = shap.TreeExplainer(model)
+shap_interaction = explainer.shap_interaction_values(X_train)
+
+shap.summary_plot(shap_interaction, X_train)
+
 # Generate the feature importance plot
 lgbm.plot_importance(model, max_num_features=15)
