@@ -11,7 +11,6 @@ from sklearn.metrics import mean_squared_error
 from lightgbm import LGBMRegressor
 from sklearn.model_selection import train_test_split
 
-shap.initjs()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # MODEL
@@ -137,7 +136,7 @@ def app():
 
         # Display the Plots
         explainer = shap.Explainer(model)
-        shap_values = explainer.shap_values(test)
+        shap_values = explainer(test)
 
         st.subheader("SHAP Summary Plot")
         input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
@@ -147,7 +146,7 @@ def app():
         # shap_interaction = explainer.shap_interaction_values(test)
 
         st.subheader("SHAP Interaction Plot")
-        # input = shap.summary_plot(shap_interaction, test)
+        # input = shap.summary_plot(shap_interaction, test, cmap='seismic')
         # st.pyplot(input)
         st.write("See README.md, I couldn't get TreeExplainer to work in the streamlit cloud...")
 
