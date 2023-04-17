@@ -11,6 +11,7 @@ from sklearn.metrics import mean_squared_error
 from lightgbm import LGBMRegressor
 from sklearn.model_selection import train_test_split
 
+shap.initjs()
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # MODEL
@@ -128,7 +129,7 @@ def app():
         input_df = input_df[X_train.columns]
 
         # Get the model's predicted value for the input
-        prediction = model.predict(input_df, return_contrib=True)[0]
+        prediction = model.predict(input_df)[0]
 
         # Display the predicted value
         st.subheader("Predicted House Price")
@@ -142,11 +143,11 @@ def app():
         input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
         st.pyplot(input)
 
-        # explainer = shap.TreeExplainer(model)
+        explainer = shap.TreeExplainer(model)
         shap_interaction = explainer.shap_interaction_values(test)
 
         st.subheader("SHAP Interaction Plot")
-        input = shap.summary_plot(shap_interaction, test, cmap='seismic')
+        input = shap.summary_plot(shap_interaction, test)
         st.pyplot(input)
 
 # Run the app
