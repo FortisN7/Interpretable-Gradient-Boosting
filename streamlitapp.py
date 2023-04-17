@@ -1,5 +1,3 @@
-import warnings
-warnings.filterwarnings("ignore")
 import streamlit as st
 import pandas as pd
 import lightgbm as lgbm
@@ -80,8 +78,8 @@ def load_data():
     model.fit(X_train, y_train)
 
     # Generate the SHAP values (outputs summary plot when button is pressed)
-    # explainer = shap.Explainer(model)
-    # shap_values = explainer(test)
+    explainer = shap.Explainer(model)
+    shap_values = explainer(test)
 
     # shap.summary_plot(shap_values, test, max_display=15, cmap='seismic')
 
@@ -93,14 +91,13 @@ def load_data():
     # Generate the feature importance plot
     # lgbm.plot_importance(model, max_num_features=15)
 
-    return model, X_train, test
+    return model, shap_values, X_train, test
 #-------------------------------------------------------------------------------------------------------------------------
 
 training.empty()
 
-model, X_train, test = load_data()
+model, shap_values, X_train, test = load_data()
 # APP
-
 def app():
     st.markdown("<body style ='color:#E2E0D9;'></body>", unsafe_allow_html=True)
 
@@ -135,18 +132,12 @@ def app():
         st.write("\$", round(prediction*0.85,2), " - ", "\$", round(prediction * 1.15,2))
 
         # Display the Plots
-        explainer = shap.Explainer(model)
-        shap_values = explainer(test)
-
         st.subheader("SHAP Summary Plot")
         input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
         st.pyplot(input)
 
-        # explainer = shap.TreeExplainer(model)
-        # shap_interaction = explainer.shap_interaction_values(test)
-
         st.subheader("SHAP Interaction Plot")
-        # input = shap.summary_plot(shap_interaction, test, cmap='seismic')
+        # input = shap.summary_plot(shap_interaction, test)
         # st.pyplot(input)
         st.write("See README.md, I couldn't get TreeExplainer to work in the streamlit cloud...")
 
