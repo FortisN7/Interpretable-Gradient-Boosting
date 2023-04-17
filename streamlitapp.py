@@ -81,15 +81,15 @@ def load_data():
     explainer = shap.Explainer(model)
     shap_values = explainer(test)
 
-    # shap.summary_plot(shap_values, test, max_display=15, cmap='seismic')
+    shap.summary_plot(shap_values, test, max_display=15, cmap='seismic')
 
     explainer = shap.TreeExplainer(model)
     shap_interaction = explainer.shap_interaction_values(test)
 
-    # shap.summary_plot(shap_interaction, test)
+    shap.summary_plot(shap_interaction, test)
 
     # Generate the feature importance plot
-    # lgbm.plot_importance(model, max_num_features=15)
+    lgbm.plot_importance(model, max_num_features=15)
 
     return model, shap_values, shap_interaction, X_train, test
 #-------------------------------------------------------------------------------------------------------------------------
