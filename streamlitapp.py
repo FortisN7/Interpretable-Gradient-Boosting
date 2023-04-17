@@ -98,48 +98,48 @@ training.empty()
 
 model, shap_values, shap_interaction, X_train, test = load_data()
 # APP
-def app():
-    st.markdown("<body style ='color:#E2E0D9;'></body>", unsafe_allow_html=True)
 
-    st.markdown("<h4 style='text-align: center; color: #1B9E91;'>House Price Prediction in Ames, Iowa</h4>", unsafe_allow_html=True)
+st.markdown("<body style ='color:#E2E0D9;'></body>", unsafe_allow_html=True)
 
-    st.markdown("<h5 style='text-align: center; color: #1B9E91;'>A LightGBM model is used to estimate the range of house prices based on your selection. The modeling process is done using the data found on Kaggle (link at left bottom corner of page)</h5>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; color: #1B9E91;'>House Price Prediction in Ames, Iowa</h4>", unsafe_allow_html=True)
 
-    # Set the title
-    st.title("House Price Prediction in Ames, Iowa by Nick Fortis")
+st.markdown("<h5 style='text-align: center; color: #1B9E91;'>A LightGBM model is used to estimate the range of house prices based on your selection. The modeling process is done using the data found on Kaggle (link at left bottom corner of page)</h5>", unsafe_allow_html=True)
 
-    # Set up the left sidebar
-    sliders = {}
-    for col in X_train.columns:
-        sliders[col] = st.sidebar.slider(col, float(X_train[col].min()), float(X_train[col].max()), float(X_train[col].min()))
-    st.sidebar.markdown("[Kaggle Link to Data Set](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview)")
+# Set the title
+st.title("House Price Prediction in Ames, Iowa by Nick Fortis")
 
-    # Set up the main panel
-    if st.button("Calculate Estimated House Price"):
-        # Create a DataFrame with the input values
-        input_df = pd.DataFrame.from_dict(sliders, orient='index').T
-        input_df = pd.get_dummies(input_df)
-        missing_cols = set(X_train.columns) - set(input_df.columns)
-        for c in missing_cols:
-            input_df[c] = 0
-        input_df = input_df[X_train.columns]
+# Set up the left sidebar
+sliders = {}
+for col in X_train.columns:
+    sliders[col] = st.sidebar.slider(col, float(X_train[col].min()), float(X_train[col].max()), float(X_train[col].min()))
+st.sidebar.markdown("[Kaggle Link to Data Set](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/overview)")
 
-        # Get the model's predicted value for the input
-        prediction = model.predict(input_df)[0]
+# Set up the main panel
+if st.button("Calculate Estimated House Price"):
+    # Create a DataFrame with the input values
+    input_df = pd.DataFrame.from_dict(sliders, orient='index').T
+    input_df = pd.get_dummies(input_df)
+    missing_cols = set(X_train.columns) - set(input_df.columns)
+    for c in missing_cols:
+        input_df[c] = 0
+    input_df = input_df[X_train.columns]
 
-        # Display the predicted value
-        st.subheader("Predicted House Price")
-        st.write("\$", round(prediction*0.85,2), " - ", "\$", round(prediction * 1.15,2))
+    # Get the model's predicted value for the input
+    prediction = model.predict(input_df)[0]
 
-        # Display the Plots
-        st.subheader("SHAP Summary Plot")
-        input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
-        st.pyplot(input)
+    # Display the predicted value
+    st.subheader("Predicted House Price")
+    st.write("\$", round(prediction*0.85,2), " - ", "\$", round(prediction * 1.15,2))
 
-        st.subheader("SHAP Interaction Plot")
-        input = shap.summary_plot(shap_interaction, test)
-        st.pyplot(input)
+    # Display the Plots
+    st.subheader("SHAP Summary Plot")
+    input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
+    st.pyplot(input)
+
+    st.subheader("SHAP Interaction Plot")
+    input = shap.summary_plot(shap_interaction, test)
+    st.pyplot(input)
 
 # Run the app
-if __name__ == "__main__":
-    app()
+# if __name__ == "__main__":
+#     app()
