@@ -6,3 +6,4 @@ matplotlib
 optuna
 scikit-learn
 numpy
+ipython
