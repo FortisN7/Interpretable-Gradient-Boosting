@@ -146,9 +146,10 @@ def app():
         # explainer = shap.TreeExplainer(model)
         # shap_interaction = explainer.shap_interaction_values(test)
 
-        # st.subheader("SHAP Interaction Plot")
+        st.subheader("SHAP Interaction Plot")
         # input = shap.summary_plot(shap_interaction, test)
         # st.pyplot(input)
+        st.write("See README.md, I couldn't get TreeExplainer to work in the streamlit cloud...")
 
 # Run the app
 if __name__ == "__main__":
