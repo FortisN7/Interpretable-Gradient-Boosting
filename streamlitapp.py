@@ -128,7 +128,7 @@ def app():
         input_df = input_df[X_train.columns]
 
         # Get the model's predicted value for the input
-        prediction = model.predict(input_df)[0]
+        prediction = model.predict(input_df, return_contrib=True)[0]
 
         # Display the predicted value
         st.subheader("Predicted House Price")
