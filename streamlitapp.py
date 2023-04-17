@@ -136,15 +136,13 @@ def app():
         st.write("\$", round(prediction*0.85,2), " - ", "\$", round(prediction * 1.15,2))
 
         # Display the Plots
-        explainer = shap.Explainer(model)
-        shap_values = explainer(test)
+        explainer = shap.TreeExplainer(model)
+        shap_values = explainer.shap_values(test)
+        shap_interaction = explainer.shap_interaction_values(test)
 
         st.subheader("SHAP Summary Plot")
         input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
         st.pyplot(input)
-
-        explainer = shap.TreeExplainer(model)
-        shap_interaction = explainer.shap_interaction_values(test)
 
         st.subheader("SHAP Interaction Plot")
         input = shap.summary_plot(shap_interaction, test)
