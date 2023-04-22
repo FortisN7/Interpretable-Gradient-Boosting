@@ -83,19 +83,21 @@ def load_data():
 
     # shap.summary_plot(shap_values, test, max_display=15, cmap='seismic')
 
-    # explainer = shap.TreeExplainer(model)
-    # shap_interaction = explainer.shap_interaction_values(test)
+    #explainer = shap.TreeExplainer(model)
+    #shap_interaction = explainer.shap_interaction_values(test)
 
     # shap.summary_plot(shap_interaction, test)
 
     # Generate the feature importance plot
     # lgbm.plot_importance(model, max_num_features=15)
 
+    #return model, shap_values, shap_interaction, X_train, test
     return model, shap_values, X_train, test
 #-------------------------------------------------------------------------------------------------------------------------
 
 training.empty()
 
+#model, shap_values, shap_interaction, X_train, test = load_data()
 model, shap_values, X_train, test = load_data()
 # APP
 def app():
@@ -137,8 +139,8 @@ def app():
         st.pyplot(input)
 
         st.subheader("SHAP Interaction Plot")
-        # input = shap.summary_plot(shap_interaction, test)
-        # st.pyplot(input)
+        #input = shap.summary_plot(shap_interaction, test)
+        #st.pyplot(input)
         st.write("See README.md, I couldn't get TreeExplainer to work in the streamlit cloud...")
 
 # Run the app
