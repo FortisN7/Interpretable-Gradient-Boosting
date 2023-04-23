@@ -138,7 +138,7 @@ def app():
         input = shap.summary_plot(shap_values, input_df, plot_type="bar", max_display=15, cmap='seismic')
         st.pyplot(input)
 
-        # Bugged Interaction Plot because lightGBM doesn't support it yet
+        # Bugged Interaction Plot because lightGBM within streamlit doesn't support it yet for some reason
         #explainer = shap.TreeExplainer(model)
         #shap_interaction = explainer.shap_interaction_values(test)
         st.subheader("SHAP Interaction Plot")
