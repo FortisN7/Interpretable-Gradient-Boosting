@@ -17,7 +17,7 @@ But even using streamlit, I spent like 3 hours trying to figure out why it broke
 
 ![Working Locally](working_locally.png "SHAP Interaction Working Locally Image")
 
-LINK TO GOOGLE SITES LANDING PAGE FOR MILESTONE-4: https://sites.google.com/njit.edu/nick-fortis/
+LINK TO GOOGLE SITES LANDING PAGE FOR MILESTONE-4: https://sites.google.com/njit.edu/house-pred-lightgbm-model
 
 The code that I created is for a web application that predicts the range of house prices in Ames, Iowa, based on a LightGBM model. All of the code is commented in streamlitapp.py to allow users to understand what is going on under the hood. The data is from a Kaggle competition, and the app uses Optuna to optimize the hyperparameters of the model. The app also uses SHAP (SHapley Additive exPlanations) to explain the model's predictions, by calculating the contributions of each feature to the predicted value.
 
